@@ -1,30 +1,57 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
-import {NavigationContainer} from '@react-navigation/native'
-import {createStackNavigator} from '@react-navigation/stack'
-import HomeScreen from './screens/HomeScreen'
-import TaskForm from './screens/TaskForm'
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Text, TouchableOpacity, View } from "react-native";
 
-const Stack = createStackNavigator()
+import HomeScreen from "./screens/HomeScreen";
+import TaskFormScreen from "./screens/TaskForm";
+
+const Stack = createStackNavigator();
+
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator >
-        <Stack.Screen name='home' component={HomeScreen} />
-        <Stack.Screen name='TaskFormScreen' component={TaskForm} />
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={({ navigation }) => ({
+            title: "Tasks App",
+            headerStyle: {
+              backgroundColor: "#222f3e",
+            },
+            headerTitleStyle: {
+              color: "#ffffff",
+            },
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("TaskFormScreen")}
+              >
+                <Text style={{ color: "#fff", marginRight: 20, fontSize: 15 }}>
+                  New
+                </Text>
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="TaskFormScreen"
+          component={TaskFormScreen}
+          options={{
+            title: 'Create a Task',
+            headerStyle: {
+              backgroundColor: "#222f3e",
+            },
+            headerTintColor: "#fff",
+
+            headerTitleStyle: {
+              color: "#ffffff",
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
 
-export default App
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'grey',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {color: '#fff', fontSize: 30, textAlign: 'center'}
-});
+export default App;
