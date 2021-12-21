@@ -44,7 +44,6 @@ const TasksList = ({ navigation }: any) => {
 
   useEffect(() => {
     getUsers();
-    console.log("called");
   }, [isFocused]);
 
   const renderItem = ({ item }: any) => (
